@@ -1,16 +1,15 @@
-# tanishq_task2_gsoc2026_prototype
+# tanishq_task2_gsoc2026
 
-A new Flutter project.
+This project is for Task 2 (Basic Flutter application) for showcasing skills aligned with Liquid Galaxy's tech stack.
 
-## Getting Started
+Project Taks:
 
-This project is a starting point for a Flutter application.
+1 Send the lg logo to the LG rig.
 
-A few resources to get you started if this is your first Flutter project:
+2 Send a 3d kml code containing a solid pyramid to LG rig and show where it is located.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+3 Send a fly to instruction to go to a specified location.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+4 Option to clean the logos.
+
+5 Option to clean the kmls.
