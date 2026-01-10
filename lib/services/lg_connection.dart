@@ -31,7 +31,7 @@ class LGConnection {
   }
 
   // Connected to the rig
-  // Now, We will be sending confidentials to the rig
+  // Now, We will be sending confidentials to the rig with sendcommand function
 
   Future<void> sendCommand(String command) async {
     if (_client == null || !_client!.isClosed) {
