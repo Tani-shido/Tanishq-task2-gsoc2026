@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../services/lg_connection.dart';
+import 'dart:io';
 import '../kml_generator.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -12,7 +13,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final LGConnection _lg = LGConnection();
-
   final TextEditingController _ipController = TextEditingController();
 
   @override
@@ -43,6 +43,27 @@ class _HomeScreenState extends State<HomeScreen> {
     ScaffoldMessenger.of(
       context,
     ).showSnackBar(SnackBar(content: Text("Settings saved.")));
+  }
+
+  // This fn is for finding working web port
+  Future<int?> _findWorkingPort(String ip) async {
+    List<int> portsToCheck = [81, 80, 8080];
+
+    for (int port in portsToCheck) {
+      try {
+        final socket = await Socket.connect(
+          ip,
+          port,
+          timeout: Duration(milliseconds: 500),
+        );
+        socket.destroy();
+        print("Port $port is working");
+        return port;
+      } catch (e) {
+        print("Port $port is not working: $e");
+      }
+    }
+    return null;
   }
 
   @override
@@ -80,13 +101,36 @@ class _HomeScreenState extends State<HomeScreen> {
                 backgroundColor: Colors.green,
                 minimumSize: Size(double.infinity, 50),
               ),
+              // KML for Bhopal
               onPressed: () async {
-                // KML for Bhopal
+                String rigIp = _ipController.text;
+
+                int? validPort = await _findWorkingPort(rigIp);
+
+                if (validPort == null) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text("Web Port [80, 81, 8080] not found."),
+                      backgroundColor: Colors.red,
+                    ),
+                  );
+                  return;
+                }
+
                 String kml = KmlGenerator.createPin("Bhopal", 23.2599, 77.4126);
 
                 await _lg.sendCommand("echo '$kml' > /var/www/html/kmls.kml");
                 await _lg.sendCommand(
-                  "echo http://lg1:81/kmls.kml > /var/www/html/kmls.txt",
+                  "echo 'http://localhost:$validPort/kmls.kml' > /var/www/html/kmls.txt",
+                );
+
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      "KML for Bhopal sent to LG rig using port $validPort.",
+                    ),
+                    backgroundColor: Colors.green,
+                  ),
                 );
               },
               child: Text("Send KML for Bhopal"),

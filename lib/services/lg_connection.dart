@@ -34,7 +34,7 @@ class LGConnection {
   // Now, We will be sending confidentials to the rig with sendcommand function
 
   Future<void> sendCommand(String command) async {
-    if (_client == null || !_client!.isClosed) {
+    if (_client == null || _client!.isClosed) {
       bool connected = await connect();
       print("Conecting...");
 

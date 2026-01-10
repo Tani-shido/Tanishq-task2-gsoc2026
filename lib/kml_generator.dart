@@ -1,7 +1,8 @@
 class KmlGenerator {
   // This function returns a BIG string of XML
   static String createPin(String name, double lat, double lng) {
-    return '''
+    String kmlContent =
+        '''
 <?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://www.opengis.net/kml/2.2">
   <Document>
@@ -12,5 +13,6 @@ class KmlGenerator {
   </Document>
 </kml>
     ''';
+    return kmlContent.replaceAll('\n', ' ');
   }
 }
