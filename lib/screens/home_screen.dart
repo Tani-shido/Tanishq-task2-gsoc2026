@@ -4,6 +4,8 @@ import '../services/lg_connection.dart';
 import '../kml_generator.dart';
 
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }

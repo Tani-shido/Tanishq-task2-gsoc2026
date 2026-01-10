@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:dartssh2/dartssh2.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -44,8 +43,13 @@ class LGConnection {
         return;
       }
     }
-    await _client?.run(command);
-    print("Info sent: $command");
+
+    try {
+      await _client!.run(command);
+      print("Sucess! Command sent: $command");
+    } catch (e) {
+      print("Falied! Command not sent: $e");
+    }
   }
 
   void disconnect() {
