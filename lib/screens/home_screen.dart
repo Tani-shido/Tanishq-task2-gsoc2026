@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io';
-import '../services/lg_connection.dart';
-import '../kml_generator.dart';
+import '../services/lg_connection.dart'; // Ensure path is correct
+import '../kml_generator.dart'; // Ensure path is correct
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -149,7 +149,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 // Link to the image URL provided
                 String logoKml = KmlGenerator.logoScreenOverlay(
                   "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgXmdNgBTXup6bdWew5RzgCmC9pPb7rK487CpiscWB2S8OlhwFHmeeACHIIjx4B5-Iv-t95mNUx0JhB_oATG3-Tq1gs8Uj0-Xb9Njye6rHtKKsnJQJlzZqJxMDnj_2TXX3eA5x6VSgc8aw/s320-rw/LOGO+LIQUID+GALAXY-sq1000-+OKnoline.png",
-                  1.0,
                 );
                 await _lg.uploadLogo(logoKml);
               },
